@@ -107,50 +107,59 @@ include "koneksi.php";
     </section>
     <!-- article end -->
 
-    <!-- Gallery Begin -->
-    <section id="gallery" class="text-center p-5">
-        <div class="container">
-            <h1 class="fw-bold display-4 pb-3">Gallery</h1>
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://i.pinimg.com/736x/3b/1e/eb/3b1eeb7b31dcd1ff89c7d90ba9148641.jpg"
-                            class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_YmRx0eInlUoLDI_cFhW0TkaOB6Ho7kGH0fHgAGUrc8WotoYQZiHVZdDihM6NlMwtbAa_WaaF1mQklhyOMFwgQoLEpNtxmojzgZBiKFrY6KEuk9VJZWwyfC_g2zEyDOr2o7rndLbYDQ0ajX0LBNpD5Xz0AwxCkN4UuVcKGwzTkfv62J-MtpjVtkPKTAc/s640/01as-Solo%20Leveling.jpg"
-                            class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://i.pinimg.com/736x/91/bf/c0/91bfc0226328efac7080db0ad1d7ffb6.jpg"
-                            class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://i.pinimg.com/564x/f3/11/ce/f311cef56082052c91a4618befa0916a.jpg"
-                            class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://i.pinimg.com/564x/05/a1/39/05a139c2623e0c96d16b5ecde710dfcd.jpg"
-                            class="d-block w-100" alt="...">
-                    </div>
+
+<!-- gallery begin -->
+    <section id="gallery" class="isi text-center p-5">
+    <div class="container">
+        <h1 class="fw-bold display-4 pb-3">Gallery</h1>
+        <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <?php
+            // Menghubungkan ke database dan mengambil data gambar dari tabel gallery
+            $sql = "SELECT * FROM gallery ORDER BY tanggal DESC";
+            $hasil = $conn->query($sql);
+            
+            // Menentukan item pertama untuk menjadi 'active'
+            $first_item = true;
+            
+            while($row = $hasil->fetch_assoc()){
+                $active_class = $first_item ? 'active' : ''; // Menandai item pertama dengan kelas active
+                $first_item = false; // Hapus status aktif setelah item pertama
+            ?>
+                <div class="carousel-item <?= $active_class ?>">
+                    <img src="img/<?= $row["gambar"]?>" class="card-img-top" alt="..." />
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+            <?php
+            }
+            ?>
         </div>
+        
+        <!-- Tombol navigasi carousel -->
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+    </div>
     </section>
-    <!-- Gallery End -->
+    <!-- gallery end -->
 
     <!-- Schedule Begin -->
-    <section id="schedule" class="text-center p-5">
+    <section id="schedule" class="isi text-center p-5 bg-danger-subtle">
         <div class="container">
             <h1 class="fw-bold display-4 pb-3">Schedule</h1>
             <div class="row row-cols-1 justify-content-center d-flex row-cols-md-4 g-4">
@@ -296,7 +305,7 @@ include "koneksi.php";
     <!-- Schedule End -->
 
     <!-- About Me Begin -->
-    <section id="aboutme" class="isi text-center p-5  text-sm bg-danger-subtle text-black ">
+    <section id="aboutme" class="isi text-center p-5  text-sm text-black ">
         <div class="container">
             <h1 class="fw-bold display-4 pb-3 ">About Me</h1>
             <div class="d-sm-flex flex-sm-row align-items-center justify-content-center">
@@ -324,7 +333,7 @@ include "koneksi.php";
 
 
     <!-- footer -->
-    <footer class="text-center p-5" id="footer">
+    <footer class="isi text-center p-5 bg-danger-subtle" id="footer">
         <div>
             <a href="" id="icon">
                 <i class="bi bi-instagram h2 p-2" id="icon"></i>
